@@ -189,6 +189,8 @@ return [
             'updated_at_helper' => '',
             'deleted_at'        => 'Deleted At',
             'deleted_at_helper' => '',
+            'audio'             =>'Audio',
+            'video'             =>'Video',
         ],
     ],
     'project'                 => [

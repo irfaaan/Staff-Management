@@ -27,6 +27,9 @@ class CreateClientsTable extends Migration
 
             $table->string('country')->nullable();
 
+            $table->string('audio_url')->nullable();
+            $table->string('video_url')->nullable();
+
             $table->timestamps();
 
             $table->softDeletes();

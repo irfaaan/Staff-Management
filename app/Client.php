@@ -30,6 +30,8 @@ class Client extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'audio_url',
+        'video_url',
     ];
 
     public function projects()

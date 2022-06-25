@@ -42,5 +42,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::apiResource('transactions', 'TransactionApiController');
 
     // Clientreports
-    Route::apiResource('client-reports', 'ClientReportApiController');
+//    Route::apiResource('client-reports', 'ClientReportApiController');
+
 });

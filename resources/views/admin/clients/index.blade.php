@@ -53,6 +53,12 @@
                             {{ trans('cruds.client.fields.status') }}
                         </th>
                         <th>
+                            {{ trans('cruds.client.fields.audio') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.client.fields.video') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -94,6 +100,25 @@
                                 {{ $client->status->name ?? '' }}
                             </td>
                             <td>
+                                @if($client->audio_url)
+                                <button href="#AudioModal"
+                                        class="btn btn-sm btn-info"
+                                        data-toggle="modal" onclick="playAudio('{{ $client->audio_url}}')">Audio</button>
+                                @else
+                                    No Audio
+                                @endif
+                            </td>
+                            <td>
+                                @if($client->video_url)
+                                <button href="#VideoModal"
+                                        class="btn btn-sm btn-primary"
+                                        data-toggle="modal" onclick="playVideo('{{ $client->video_url}}')">Video</button>
+                                @else
+                                No Video
+                                @endif
+
+                            </td>
+                            <td>
                                 @can('client_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.clients.show', $client->id) }}">
                                         {{ trans('global.view') }}
@@ -120,6 +145,46 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <div id="VideoModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Play Video</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <video id="VideoPlayer"src="" controls style="width: 100%; height: auto"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="AudioModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Play Audio</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <audio
+                                controls
+                                id="AudioPlayer"
+                                src=""
+                                style="width: 100%;"
+                            >
+                                Your browser does not support the
+                                <code>audio</code> element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -171,4 +236,22 @@
 })
 
 </script>
+<script>
+    $(document).ready(function() {
+        $("#VideoModal").on('hide.bs.modal', function() {
+            $("#VideoPlayer").attr('src', '');
+        });
+        $("#AudioModal").on('hide.bs.modal', function() {
+            $("#AudioPlayer").attr('src', '');
+        });
+
+    });
+    function playVideo(url){
+        $("#VideoPlayer").attr('src', url);
+    }
+    function playAudio(url){
+        $("#AudioPlayer").attr('src', url);
+    }
+</script>
+
 @endsection
